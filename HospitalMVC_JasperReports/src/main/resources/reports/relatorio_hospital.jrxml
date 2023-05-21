@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2023-05-20T21:37:29 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_hospital" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9f0cc247-012e-4a65-ba76-0866d329ca27">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="JasperMVC_hospital"/>
+	<parameter name="tratamento" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT p.nome AS nome_paciente,
+       CONVERT(CHAR(10), p.data_nasc, 103) AS data_nasc,
+	   m.nome AS nome_medico,
+	   e.especialidade,
+	   CONVERT(CHAR(10),CONVERT(DATE, mp.dataHora), 103) AS data,
+	   CONVERT(CHAR(5), CONVERT(TIME, mp.dataHora, 103)) AS hora,
+	   mp.CID,
+	   mp.tratamento
+FROM Paciente p, Medico m, Especialidade e, Medico_Especialidade me, Medico_Paciente mp
+WHERE p.id = mp.IdPaciente
+  AND m.Id = mp.IdMedico
+  AND m.Id = me.IdMedico
+  AND e.Id = me.IdEspecialidade
+  AND mp.tratamento = $P{tratamento}]]>
+	</queryString>
+	<field name="nome_paciente" class="java.lang.String"/>
+	<field name="data_nasc" class="java.lang.String"/>
+	<field name="nome_medico" class="java.lang.String"/>
+	<field name="especialidade" class="java.lang.String"/>
+	<field name="data" class="java.lang.String"/>
+	<field name="hora" class="java.lang.String"/>
+	<field name="CID" class="java.lang.Integer"/>
+	<field name="tratamento" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="89ff82d9-4c69-4c44-bf73-750e3571a6df"/>
+				<staticText>
+					<reportElement x="20" y="20" width="450" height="43" forecolor="#FFFFFF" uuid="ca428fde-d895-4b89-b2c6-a2b9a6fd93be"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Relatorio Consulta]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13">
+			<line>
+				<reportElement x="-20" y="-2" width="595" height="1" forecolor="#666666" uuid="4ae4e7d7-cf91-4e65-912f-1cb430779c01"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="114" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="425fb554-97ff-4d6c-87f7-bf9a1148e336"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome Paciente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="269" y="1" width="160" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="307ccff3-ee3f-476e-9cb4-d8f98e998c14"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de Nascimento:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="431" y="1" width="138" height="20" uuid="862a1259-4782-4969-9dc0-c3055aa08dcc"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data_nasc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="117" y="1" width="145" height="20" uuid="206e8001-9c03-4dc9-909e-2b319fafbde9"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_paciente}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="203">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="-20" y="100" width="595" height="1" uuid="ce7ed91d-eaaa-486a-888b-f5835df4e7ac"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="118" y="34" width="145" height="20" uuid="1c9f2424-4bfe-4399-9b3c-045948a57a99"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_medico}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="385" y="34" width="151" height="20" uuid="d4ec96c2-c948-4f3a-a85b-a6326a1cbd77"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{especialidade}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="62" y="80" width="145" height="20" uuid="c5b11124-f350-499d-afc4-d8579e9594c3"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="345" y="81" width="151" height="20" uuid="382f8aef-e6e0-4686-9d12-8c588bc514e1"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hora}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="64" y="140" width="166" height="20" uuid="c66c2dc4-13e1-47a6-b28a-b6d24b758a10"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CID}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="90" y="180" width="150" height="20" uuid="ca662c46-5029-4bef-aac2-8d0be9f168b0"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tratamento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="33" width="116" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="7ef2b8d3-b144-4d65-bc2f-7e5275fca0c7"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome Medico:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="269" y="34" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="8591c7c5-1f7c-44cb-8d64-a741cb6c72e1"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Especialidade:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="79" width="60" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="4bd96d21-7b01-4185-9c75-0f2a99be736b"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="269" y="80" width="70" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="c17d35bd-84f6-4cef-8cbd-7e5bd4326d3a"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="140" width="60" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="26aafe30-fdd1-46ba-8920-1d5c3871f50c"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CID:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="180" width="88" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="14d98541-0d43-4710-a63f-a32ee000d539"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tratamento:]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>
